@@ -13,15 +13,15 @@ model = tf.keras.applications.mobilenet_v2.MobileNetV2(weights='imagenet')
 def preprocess_image(image_path):
     img = Image.open(image_path)
     
-    # Convert the image to RGB if it's not already in that mode (i.e., if it's RGBA or L mode)
+    # Convert the image to RGB if it's not already in that mode 
     if img.mode != 'RGB':
         img = img.convert('RGB')
     
-    img = img.resize((224, 224))  # Resize to the expected size
+    img = img.resize((224, 224))  # Resize 
     img_array = np.array(img) / 255.0  # Normalize
     img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
     return img_array
-# Load the custom trained model
+# Load the custom model
 model = tf.keras.models.load_model('vehicle_classifier_model.h5')
 
 
@@ -37,19 +37,17 @@ def classify_image(image_path):
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
-        # Check if an image was uploaded
         if 'file' not in request.files:
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
             return redirect(request.url)
         
-        # Save the file and classify it
         file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
         prediction = classify_image(file_path)
         
-        # Render results
+        
         return render_template("result.html", filename=file.filename, label=prediction[0], confidence=round(prediction[1] * 100, 2))
 
     return render_template("index.html")
@@ -58,5 +56,8 @@ def index():
 def uploaded_file(filename):
     return redirect(url_for('static', filename=f'uploads/{filename}'))
 
+from multiprocessing import cpu_count
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    
+    app.run(debug=False, processes=cpu_count())
