@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Classifier</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-gray-100" style="background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="glass-effect p-8 rounded-lg shadow-lg max-w-md w-full">
+            <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Image Classification</h1>
+            <form action="/" method="POST" enctype="multipart/form-data" class="space-y-4">
+                <div>
+                    <label class="block mb-2 text-sm font-medium text-gray-700" for="file_input">Upload an Image</label>
+                    <input type="file" name="file" id="file_input" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" required>
+                </div>
+                <button type="submit" class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">Classify Image</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
